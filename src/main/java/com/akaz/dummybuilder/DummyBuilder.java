@@ -33,6 +33,14 @@ public class DummyBuilder extends AbstractDummyBuilder {
     public static DummyBuilder newInstance(Class<?> clazz) {
         return new DummyBuilder(clazz);
     }
+    
+    /**
+     * Populate dummy data into a given builder. This will recursively run through its fields and try to come up with newly
+     * populated objects for those fields.
+     */
+    public static <T> T fromBuilder(T builder) {
+        return new DummyBuilder(builder).build();
+    }
 
     @Override
     protected ClassBindings getClassBindings() {
