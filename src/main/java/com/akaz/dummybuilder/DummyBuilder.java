@@ -1,10 +1,17 @@
 package com.akaz.dummybuilder;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.dummycreator.ClassBindings;
 import org.joda.time.DateTime;
 
+import com.akaz.dummybuilder.factories.ClassBasedFactory;
 import com.akaz.dummybuilder.factories.DateDummyFactory;
 import com.akaz.dummybuilder.factories.DateTimeDummyFactory;
 
@@ -44,8 +51,11 @@ public class DummyBuilder extends AbstractDummyBuilder {
 
     @Override
     protected ClassBindings getClassBindings() {
-        ClassBindings classBindings = ClassBindings.defaultBindings();
+        ClassBindings classBindings = new ClassBindings();
 
+        classBindings.add(List.class, new ClassBasedFactory<>(ArrayList.class));
+        classBindings.add(Map.class, new ClassBasedFactory<>(HashMap.class));
+        classBindings.add(Set.class, new ClassBasedFactory<>(HashSet.class));
         classBindings.add(Date.class, new DateDummyFactory());
         classBindings.add(DateTime.class, new DateTimeDummyFactory());
 
