@@ -1,5 +1,7 @@
 package com.akaz.dummybuilder;
 
+import java.lang.annotation.Annotation;
+
 import org.dummycreator.ClassBindings;
 
 import com.akaz.dummybuilder.factories.ClassBasedFactory;
@@ -25,13 +27,13 @@ public abstract class AbstractDummyBuilder {
     protected AbstractDummyBuilder(Object instance) {
         this.instance = instance;
     }
-
+    
     protected abstract ClassBindings getClassBindings();
     
     @SuppressWarnings({"unchecked", "rawtypes"})
     public <T> T build() {
         Object dummy = null;
-
+        
         if (this.clazz != null) {
             dummy = new ClassBasedFactory(clazz, populateCondition).createDummy(getClassBindings());
         } else if (this.instance != null) {
@@ -62,7 +64,7 @@ public abstract class AbstractDummyBuilder {
     /**
      * Specifies the annotation to ignore. The annotated field will not be populated.
      */
-    public AbstractDummyBuilder ignoreAnnotated(Class<?> annotation) {
+    public <T extends Annotation> AbstractDummyBuilder ignoreAnnotated(Class<T> annotation) {
         populateCondition.addIgnoreAnnotation(annotation);
         return this;
     }

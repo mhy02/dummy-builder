@@ -7,6 +7,10 @@
 	<version>1.0.0</version>
 	<packaging>jar</packaging>
 
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
 	<name>dummy-builder</name>
 	<url>https://github.com/mhy02/dummy-builder</url>
 
@@ -19,18 +23,52 @@
 	</licenses>
 
 	<distributionManagement>
-    <repository>
-        <id>bintray-dleoghk20-akaz</id>
-        <name>dleoghk20-akaz</name>
-        <url>https://api.bintray.com/maven/dleoghk20/akaz/dummy-builder/;publish=1</url>
-    </repository>
-</distributionManagement>
+		<repository>
+			<id>nhnentReleaseRepository</id>
+			<name>Nhnent Maven Release Repository</name>
+			<url>http://nexus.nhnent.com/content/repositories/releases/</url>
+		</repository>
+		<snapshotRepository>
+			<id>nhnentSnapshotRepository</id>
+			<name>Nhnent Maven Snapshot Repository</name>
+			<url>http://nexus.nhnent.com/content/repositories/snapshots/</url>
+			<uniqueVersion>false</uniqueVersion>
+		</snapshotRepository>
+	</distributionManagement>
 
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<bintray.repo>dleoghk20/akaz</bintray.repo>
-		<bintray.package>dummy-builder</bintray.package>
-	</properties>
+	<repositories>
+		<repository>
+			<id>nhnentRepository</id>
+			<name>Nhnent Maven Repository</name>
+			<url>http://nexus.nhnent.com/content/groups/public/</url>
+			<snapshots>
+				<updatePolicy>always</updatePolicy>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>maven.release.repository</id>
+			<url>http://repo1.maven.org/maven2</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+		</repository>
+	</repositories>
+
+	<pluginRepositories>
+		<pluginRepository>
+			<id>maven2</id>
+			<name>Java.net Maven 2 Repository</name>
+			<url>http://repo1.maven.org/maven2</url>
+		</pluginRepository>
+		<pluginRepository>
+			<id>maven2-repository.dev.java.net</id>
+			<name>Java.net Maven 2 Repository</name>
+			<url>http://download.java.net/maven/2</url>
+		</pluginRepository>
+	</pluginRepositories>
 
 	<build>
 		<plugins>
@@ -40,60 +78,22 @@
 				<configuration>
 					<source>1.7</source>
 					<target>1.7</target>
+					<debug>true</debug>
+					<optimize>true</optimize>
+					<encoding>${encoding}</encoding>
+					<showDeprecations>true</showDeprecations>
 				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-				<version>2.3.2</version>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-source-plugin</artifactId>
-				<version>2.3</version>
-				<executions>
-					<execution>
-						<id>attach-sources</id>
-						<phase>verify</phase>
-						<goals>
-							<goal>jar</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>2.9.1</version>
-				<executions>
-					<execution>
-						<id>attach-javadocs</id>
-						<phase>verify</phase>
-						<goals>
-							<goal>jar</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-gpg-plugin</artifactId>
-				<version>1.6</version>
-				<executions>
-					<execution>
-						<id>sign-artifacts</id>
-						<phase>verify</phase>
-						<goals>
-							<goal>sign</goal>
-						</goals>
-					</execution>
-				</executions>
 			</plugin>
 		</plugins>
 	</build>
 
 	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>3.8.1</version>
+			<scope>test</scope>
+		</dependency>
 		<dependency>
 			<groupId>joda-time</groupId>
 			<artifactId>joda-time</artifactId>
