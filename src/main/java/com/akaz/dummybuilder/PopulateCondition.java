@@ -1,5 +1,6 @@
 package com.akaz.dummybuilder;
 
+import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -31,12 +32,8 @@ public class PopulateCondition {
         this.ignoreFieldNames.add(fieldName);
     }
 
-    public void addIgnoreAnnotation(Class<?> clazz) {
-        if (clazz.isAnnotation()) {
-            this.ignoreAnnotations.add(clazz);
-        } else {
-            throw new IllegalArgumentException(clazz.getName() + " is not annotation");
-        }
+    public <T extends Annotation> void addIgnoreAnnotation(Class<T> clazz) {
+        this.ignoreAnnotations.add(clazz);
     }
 
 }
